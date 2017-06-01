@@ -1,0 +1,22 @@
+#include "kernel.h"
+#include "alist.h"
+#include "utest.h"
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+mailBox temperature;
+
+void measure(){
+    double currentTemp = getTemp();
+    send_wait(temperature,&currentTemp);
+    terminate();
+}
+
+void control(double value){
+  double currentTemp;
+  receive_wait(temperature,&currentTemp);
+  double deviation = value - currentTemp;
+}
